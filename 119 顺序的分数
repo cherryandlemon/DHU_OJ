@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+#include<algorithm>
+using namespace std;
+#define maxn 1000000+5
+#define minn -1000000
+int vis[maxn];
+struct line
+{
+    int st;
+    int ed;
+    int len;
+}li[5050];
+int cmp(line a,line b)
+{
+    if(a.st!=b.st)return a.st <b.st;
+    else return a.ed<b.ed;
+}
+void set_one(int a,int b)
+{
+    for(int i=a;i<=b;i++)
+        vis[i]=1;
+}
+int pro119()
+{
+    int n;
+    scanf("%d",&n);
+    memset(vis,0,sizeof(vis));
+    for(int i=0;i<n;i++)
+        scanf("%d %d",&li[i].st,&li[i].ed);
+    for(int i=0;i<n;i++)
+        li[i].len=li[i].ed-li[i].st;
+    sort(li,li+n,cmp);
+    int st_time=li[0].st,ed_time=li[n-1].ed;
+    int now=st_time,max_have_line=minn,max_nothave_line=minn;
+    for(int i=0;i<=n;i++)
+    {
+        if(li[i].ed<now);
+        else
+        {
+            set_one(li[i].st,li[i].ed);
+            now=li[i].ed;
+        }
+    }
+    for(int i=st_time;i<=ed_time;i++)
+    {
+        int line_st=i,line_ed=i;
+        while(vis[i])
+        {
+            line_ed++;
+            i++;
+        }
+        if(line_ed-line_st>max_have_line)max_have_line=line_ed-line_st-1;
+    }
+    for(int i=st_time;i<=ed_time;i++)
+    {
+        int line_st=i,line_ed=i;
+        while(!vis[i])
+        {
+            line_ed++;
+            i++;
+        }
+        if(line_ed-line_st>max_nothave_line)max_nothave_line=line_ed-line_st+1;
+    }
+    printf("%d %d",max_have_line,max_nothave_line);
+}
+int main()
+{
+	
+
+	pro119();
+	return 0;
+}
