@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define MAX_SIZE 1000
+int pro83()
+{
+    int i = 0;
+	int num = 0;
+	int res = 0;
+	char preOp = '+';
+	int count = 0;
+	char exp[MAX_SIZE] = "";
+
+	while (gets(exp)) {
+		count = 0, res = 0, i = 0;
+
+		while (i < strlen(exp)) {
+			while (exp[i] == ' ')//
+				i++;
+
+			count++;
+			if (count == 1 && (exp[i] >= '0' && exp[i] <= '9')) {
+				preOp = '+';
+				num = 0;
+				while (exp[i] >= '0' && exp[i] <= '9') {
+					num = num * 10 + (exp[i] - '0');
+					i++;
+				}
+				res = num;
+
+				continue;
+			}
+
+			preOp = exp[i++];// 读运算符
+
+			while (exp[i] == ' ')// 忽略空格
+				i++;
+
+			num = 0;
+			while (exp[i] >= '0' && exp[i] <= '9') {// 合成数字
+				num = num * 10 + (exp[i] - '0');
+				i++;
+			}
+
+			if (preOp == '+')
+				res += num;
+			else
+				res -= num;
+		}
+		printf("%d\n", res);
+	}
+}
+int main()
+{
+	
+	pro83();
+	return 0;
+}
