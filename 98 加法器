@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int pro98()
+{
+    char s[1005];
+    while(gets(s))
+    {
+        char *p;
+        p=strtok(s,"+");
+        int ans=0;
+        while(p)
+        {
+            ans=ans+atoi(p);
+            p=strtok(NULL,"+");
+        }
+        printf("%d\n",ans);
+    }
+}
+int main()
+{
+
+	pro98();
+	return 0;
+}
