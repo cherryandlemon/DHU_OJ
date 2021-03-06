@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+int n,m,step;
+void move_one(char a,char b)
+{
+    step++;
+    if(step==m)
+    printf("%c--%c\n",a,b);
+}
+void hannuo(char a,char b,char c,int n)
+{
+    // a--src  b---des c---assist
+    if(n==1)move_one(a,c);
+    else{
+        hannuo(a,c,b,n-1);
+        move_one(a,c);
+        hannuo(b,a,c,n-1);
+    }
+}
+int pro128()
+{
+
+    while(scanf("%d%d",&n,&m)!=EOF)
+    {
+        step=0;
+        hannuo('A','B','C',n);
+        if(step<m||m<=0)printf("none\n");
+    }
+}
+int main()
+{
+
+
+	pro128();
+	return 0;
+}
