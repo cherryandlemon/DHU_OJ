@@ -1,0 +1,136 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<iostream>
+#include<algorithm>
+#include<string.h>
+using namespace std;
+int mat[50][50];
+int vis[50];
+int linelas[50];
+int right_up(int& posi,int& posj,int len,int& st)
+{
+    for(int i=0;i<len;i++)
+        mat[posi][posj+i]=st++;
+    posj=posj+len-1;
+    for(int i=1;i<len;i++)
+        mat[posi-i][posj]=st++;
+    posi=posi-len;
+    return st;
+}
+int left_down(int& posi,int& posj,int len,int& st)
+{
+    for(int i=0;i<len;i++)
+        mat[posi][posj-i]=st++;
+    posj=posj-len+1;
+    for(int i=1;i<len;i++)
+        mat[posi+i][posj]=st++;
+    posi=posi+len;
+    return st;
+}
+void generate_mat(int n)
+{
+    memset(mat,0,sizeof(mat));
+    mat[(n+1)/2][(n+1)/2]=1;
+    int posi=(n+1)/2+1;
+    int posj=(n+1)/2;
+    int st=2;
+    for(int k=1;k<=n-1;k++)
+    {
+        if(k%2==1)right_up(posi,posj,k+1,st);
+        else left_down(posi,posj,k+1,st);
+    }
+}
+void printmat(int n)
+{
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=n;j++)
+            printf("%d",mat[i][j]);
+        printf("\n");
+    }
+}
+void printmat_(int fircol,int lascol,int n)
+{
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=fircol;j<lascol&&j<=linelas[i];j++)
+        {
+            if(vis[j])
+            {
+                if(mat[i][j])printf("%2d",mat[i][j]);
+                else printf("  ");
+            }
+            else
+            {
+                if(mat[i][j])printf("%d",mat[i][j]);
+                else printf(" ");
+            }
+            if(j!=linelas[i])printf(" ");
+        }
+
+        if(vis[lascol])
+        {
+            if(mat[i][lascol])printf("%2d",mat[i][lascol]);
+            else ;
+        }
+        else
+        {
+            if(mat[i][lascol])printf("%d",mat[i][lascol]);
+            else ;
+        }
+        printf("\n");
+    }
+}
+int pro79()
+{
+      int n,sq[11]={0,1,4,9,16,25,36,49,64,81,100};
+      int flag=0;
+      while(scanf("%d",&n)!=EOF)
+      {
+        if(flag)
+        {
+            printf("\n");
+
+        }
+        flag=1;
+        int i,fircol=0,lascol=0;
+        memset(vis,0,sizeof(vis));
+        memset(linelas,0,sizeof(linelas));
+        for(i=1;i<=10&&n>sq[i];i++);
+        generate_mat(i);
+        for(int k=1;k<=i;k++)
+            for(int j=1;j<=i;j++)
+              if(mat[k][j]>n)mat[k][j]=0;
+        for(int j=1;j<=i&&!fircol;j++)
+            for(int k=1;k<=i;k++)
+               if(mat[k][j])
+               {
+                   fircol=j;
+                   break;
+               }
+        for(int j=i;j>=1&&!lascol;j--)
+            for(int k=1;k<=i;k++)
+               if(mat[k][j])
+               {
+                   lascol=j;
+                   break;
+               }
+        for(int j=1;j<=i;j++)
+            for(int k=fircol;k<=lascol;k++)
+            {
+                if(mat[j][k]>=10)vis[k]=1;
+                if(mat[j][k])linelas[j]=k;
+            }
+
+        printmat_(fircol,lascol,i);
+
+      }
+}
+int main()
+{
+	
+
+	pro79();
+	return 0;
+}
