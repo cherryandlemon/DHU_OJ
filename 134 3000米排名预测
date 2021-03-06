@@ -1,0 +1,86 @@
+
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+#include<algorithm>
+#include<iostream>
+using namespace std;
+int n,m,ans=0,vis[11],arr[11];
+int sans[30000][11],sant=0;
+struct Pr
+{
+    int c;
+    int d[15];
+    int r;
+}p[15];
+int checkone(Pr pone,int a[11])
+{
+    int k=0;
+    for(int i=0;i<n&&k<pone.c;)
+    {
+        if(a[i]==pone.d[k])
+        {
+            i++;
+            k++;
+        }
+        else i++;
+    }
+    if(k==pone.c&&pone.r||k<pone.c&&!pone.r)return 1;
+    else return 0;
+}
+int check()
+{
+    for(int i=0;i<m;i++)
+        if(!checkone(p[i],arr))return 0;
+    return 1;
+}
+void dfs(int pos)
+{
+    if(pos==n&&check())
+    {
+        for(int i=0;i<n;i++)
+            sans[sant][i]=arr[i];
+        sant++;
+    }
+    for(int i=0;i<n;i++)
+    {
+        if(!vis[i])
+        {
+            vis[i]=1;
+            arr[pos]=i;
+            dfs(pos+1);
+            vis[i]=0;
+        }
+    }
+}
+int pro134()
+{
+    scanf("%d%d",&n,&m);
+    memset(vis,0,sizeof(vis));
+    for(int i=0;i<m;i++)
+    {
+        scanf("%d",&p[i].c);
+        for(int j=0;j<p[i].c;j++)
+            scanf("%d",&p[i].d[j]);
+        scanf("%d",&p[i].r);
+    }
+    dfs(0);
+    printf("%d\n",sant);
+    for(int i=0;i<sant;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            printf("%d ",sans[i][j]);
+        }
+        printf("\n");
+    }
+}
+int main()
+{
+	
+
+	pro134();
+	return 0;
+}
