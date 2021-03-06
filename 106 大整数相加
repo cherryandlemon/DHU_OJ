@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+void big_num_add(char a[],char b[],char c[])
+{
+    int add=0;
+    int len,flag=1;
+    if(strlen(a)>strlen(b))len=strlen(a);
+    else{
+        len=strlen(b);
+        flag=0;
+    }
+    int fil;
+    if(flag)//fill b
+    {
+        for(int i=strlen(b);i<len;i++)
+            b[i]='0';
+        b[len]='\0';
+    }
+    else{
+        for(int i=strlen(a);i<len;i++)
+            a[i]='0';
+        a[len]='\0';
+    }
+    for(int i=0;i<len;i++)
+    {
+        int numa=a[i]-'0';
+        int numb=b[i]-'0';
+        int all=numa+numb+add;
+        int numc=all%10;
+        add=all/10;
+        char cc=numc+'0';
+        c[i]=cc;
+    }
+    c[len]=add+'0';
+    c[len+1]='\0';
+}
+void print_big_num(char c[])
+{
+    int st=0;
+    while(!(c[st]-'0'))st++;
+    if(st==strlen(c))printf("0");
+    for(int i=st;i<strlen(c);i++)
+        printf("%c",c[i]);
+}
+int pro106()
+{
+    int T;
+    scanf("%d",&T);
+    int flag=0,cnt=1;
+    while(T--)
+    {
+        if(flag)printf("\n");
+        flag=1;
+        char a[1005],b[1005],c[1005];
+        scanf("%s%s",a,b);
+        strrev(a);
+        strrev(b);
+        big_num_add(a,b,c);
+        strrev(a);
+        strrev(b);
+        printf("Case %d:\n",cnt++);
+        print_big_num(a);
+        printf(" + ",a,b);
+        print_big_num(b);
+        printf(" = ");
+        strrev(c);
+        print_big_num(c);
+        printf("\n");
+
+    }
+}
+int main()
+{
+	
+
+	pro106();
+	return 0;
+}
