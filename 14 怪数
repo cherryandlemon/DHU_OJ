@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include<math.h>
+#include<iostream>
+#include<string>
+using namespace std;
+//#include <pro4.h>
+int pro14()
+{
+    int n;
+    int d[1000];
+    while(cin>>n)
+    {
+        for(int k=1;k<=n;k++)
+        {
+            int s=0;
+            for(int i=1;i*i<k;i++)
+            {
+                if (k % i == 0)
+                {
+                    if (i == k / i)
+                        s+=i;
+                    else
+                        s = s + i + k / i;
+                }
+            }
+            s-=k;
+            if(s==k)cout<<k<<endl;
+        }
+    }
+
+}
+int main()
+{
+    //freopen("E:\\2_rub\\donhuakaoyanzhuanyeke\\DongHuaOj\\DongHuaOj\\in.txt","r",stdin);
+   // freopen("E:\\2_废弃\\东华考研专业课\\DongHuaOj\\DongHuaOj\\out.txt","w",stdout);
+    //pro12();
+    pro14();
+    return 0;
+}
