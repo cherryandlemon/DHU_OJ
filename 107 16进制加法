@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+#define maxn 1000
+int pro107()
+{
+    int T;
+    scanf("%d",&T);
+    while(T--)
+    {
+        char a[maxn],b[maxn];
+        scanf("%s%s",a,b);
+        long int la=strtol(a,NULL,16);
+        long int lb=strtol(b,NULL,16);  //转换成10进制
+        int lc=(int)(la+lb);
+        char c[maxn];
+        itoa(lc,c,16);//转换成16进制
+        printf("%s\n",c);
+    }
+}
+int main()
+{
+	
+	pro107();
+	return 0;
+}
