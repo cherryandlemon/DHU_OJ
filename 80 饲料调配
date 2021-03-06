@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<iostream>
+#include<algorithm>
+#include<string.h>
+using namespace std;
+#define maxn 300
+int isEqual(int tar[3],int i,int j,int k)
+{
+    if(!i&&!j&&!k)return 0;
+    int ans=0;
+    if(tar[0]&&i)ans=i/tar[0];
+    if(tar[1]&&j)ans=j/tar[1];
+    if(tar[2]&&j)ans=k/tar[2];
+    if(tar[0]*ans==i&&tar[1]*ans==j&&tar[2]*ans==k)return 1;
+    else return 0;
+}
+int pro80()
+{
+    int tar[3],firfd[3],secfd[3],thifd[3],minans=999999,ansfd[3];
+    for(int i=0;i<3;i++)
+        scanf("%d",&tar[i]);
+    for(int i=0;i<3;i++)
+        scanf("%d",&firfd[i]);
+    for(int i=0;i<3;i++)
+        scanf("%d",&secfd[i]);
+    for(int i=0;i<3;i++)
+        scanf("%d",&thifd[i]);
+    for(int i=0;i<maxn;i++)
+        for(int j=0;j<maxn;j++)
+          for(int k=0;k<maxn;k++)
+          {
+            int c[3];
+            for(int m=0;m<3;m++)
+            c[m]=i*firfd[m]+j*secfd[m]+k*thifd[m];
+            if(isEqual(tar,c[0],c[1],c[2]))
+            {
+                if(c[0]/tar[0]<minans)
+                {
+                    minans=c[0]/tar[0];
+                    ansfd[0]=i,ansfd[1]=j,ansfd[2]=k;
+                }
+            }
+          }
+    if(minans==999999)
+        printf("NONE\n");
+    else
+    {
+        for(int i=0;i<3;i++)
+        printf("%d ",ansfd[i]);
+        printf("%d\n",minans);
+    }
+}
+int main()
+{
+	
+
+	pro80();
+
+	return 0;
+}
