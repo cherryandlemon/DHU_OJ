@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+#include<algorithm>
+#include<iostream>
+using namespace std;
+string strs[55];
+bool cmp(string a, string b) {
+    return a + b > b + a;
+}
+
+int pro129()
+{
+    int n;
+    while(scanf("%d",&n) == 1 && n) {
+        for(int i = 0; i < n; ++i) {
+            cin >> strs[i];
+        }
+        sort(strs, strs + n, cmp);
+        for(int i = 0; i < n; ++i) {
+            cout << strs[i];
+        }
+        cout << endl;
+    }
+}
+int main()
+{
+	
+
+	pro129();
+	return 0;
+}
