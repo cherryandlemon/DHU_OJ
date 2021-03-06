@@ -1,0 +1,21 @@
+#include <stdio.h>
+int pro34()
+{
+    int n;
+    int d[55];
+    d[0]=0;
+    d[1]=1,d[2]=1,d[3]=2,d[4]=3,d[5]=5,d[6]=7,d[7]=10;
+    for(int i=8;i<=50;++i)
+        d[i]=d[i-1]+d[i-2]-d[i-5];
+    while(scanf("%d",&n)!=EOF)
+    {
+        printf("%d\n",d[n]);
+    }
+}
+int main()
+{
+	//freopen("E:\\2_rub\\donhuakaoyanzhuanyeke\\DongHuaOj\\DongHuaOj\\in.txt", "r", stdin);
+	//freopen("E:\\2_rub\\donhuakaoyanzhuanyeke\\DongHuaOj\\DongHuaOj\\out.txt","w",stdout);
+	pro34();
+	return 0;
+}
