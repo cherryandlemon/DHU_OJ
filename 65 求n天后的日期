@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include<stdlib.h>
+int isLeapYear(int year){
+    if(year%4==0&&year%100!=0||year%400==0)return 1;
+    else return 0;
+}
+int pro65()
+{
+    int year,mon,day,n;
+    while(scanf("%d%d%d%d",&year,&mon,&day,&n)!=EOF)
+    {
+        int dayarr[2][12]={{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+                    {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};
+        int ansyear=year,ansmon=mon,ansday=day;
+        for(int i=1;i<=n;i++)
+        {
+            ansday++;
+            int flag=isLeapYear(ansyear);
+            if(flag)
+            {
+                if(ansday>dayarr[1][ansmon-1])
+                {
+                    ansmon++;
+                    ansday=1;
+                }
+            }
+            else
+            {
+                if(ansday>dayarr[0][ansmon-1])
+                {
+                    ansmon++;
+                    ansday=1;
+                }
+            }
+            if(ansmon>12)
+            {
+                ansyear++;
+                ansmon=1;
+            }
+        }
+        printf("%d %d %d\n",ansyear,ansmon,ansday);
+    }
+}
+int main()
+{
+	//freopen("E:\\2_rub\\donhuakaoyanzhuanyeke\\DongHuaOj\\DongHuaOj\\in.txt", "r", stdin);
+	//freopen("E:\\2_rub\\donhuakaoyanzhuanyeke\\DongHuaOj\\DongHuaOj\\out.txt","w",stdout);
+
+	pro65();
+	return 0;
+}
