@@ -1,0 +1,112 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+//vis==1 mean patrick
+void set_zeroone(int d[],int n,int len)
+{
+    for(int i=0;i<len;i++)
+    {
+        if(n&(int)(pow(2,i)))d[i]=1;
+        else d[i]=0;
+    }
+}
+void num_add(char a[],char b[],char c[])
+{
+    int add=0;
+    int len,flag=1;
+    if(strlen(a)>strlen(b))len=strlen(a);
+    else{
+        len=strlen(b);
+        flag=0;
+    }
+    int fil;
+    if(flag)//fill b
+    {
+        for(int i=strlen(b);i<len;i++)
+            b[i]='0';
+        b[len]='\0';
+    }
+    else{
+        for(int i=strlen(a);i<len;i++)
+            a[i]='0';
+        a[len]='\0';
+    }
+    for(int i=0;i<len;i++)
+    {
+        int numa=a[i]-'0';
+        int numb=b[i]-'0';
+        int all=numa+numb+add;
+        int numc=all%2;
+        add=all/2;
+        char cc=numc+'0';
+        c[i]=cc;
+        add=0;
+    }
+    c[len]=add+'0';
+    c[len+1]='\0';
+}
+int get_two_sum_bypat(int a,int b)
+{
+    char ca[10],cb[10],cc[10];
+    itoa(a,ca,2);
+    itoa(b,cb,2);
+    strrev(ca);
+    strrev(cb);
+    num_add(ca,cb,cc);
+    strrev(cc);
+    return strtol(cc,NULL,2);
+}
+int isEqualbypat(int vis[],int surger[],int len)
+{
+    int shawn=0,pat=0;
+    for(int i=0;i<len;i++)
+    {
+        if(vis[i])pat=get_two_sum_bypat(pat,surger[i]);
+        else shawn=get_two_sum_bypat(shawn,surger[i]);
+    }
+    return shawn==pat?1:0;
+}
+int get_surger_sum(int vis[],int surger[],int len)
+{
+    int sum_a=0,sum_b=0;
+    for(int i=0;i<len;i++)
+        if(vis[i])sum_a+=surger[i];
+        else sum_b+=surger[i];
+    if(sum_a>sum_b)return sum_a;
+    else return sum_b;
+}
+int pro121()
+{
+    int T;
+    scanf("%d",&T);
+    while(T--)
+    {
+
+        int flag,n,surger[15],vis[15],maxans=0;
+        scanf("%d",&n);
+        for(int i=0;i<n;i++)
+            scanf("%d",&surger[i]);
+        int limit=pow(2,n);
+        for(int i=0;i<limit;i++)
+        {
+if(i==0||i==limit-1)continue;
+            set_zeroone(vis,i,n);
+            flag=isEqualbypat(vis,surger,n);
+            if(flag&&get_surger_sum(vis,surger,n)>maxans)maxans=get_surger_sum(vis,surger,n);
+        }
+        if(maxans)printf("%d\n",maxans);
+        else printf("NO\n");
+    }
+}
+int main()
+{
+
+	pro121();
+	return 0;
+}
+
+
+
+
