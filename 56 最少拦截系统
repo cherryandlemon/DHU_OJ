@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int id;
+    int lamax;
+}n[1005];
+int pro56()
+{
+    int T;
+    scanf("%d",&T);
+    while(T--)
+    {
+        int ni,cnt=0,t;
+        scanf("%d",&ni);
+        for(int i=0;i<ni;i++)
+        {
+            scanf("%d",&t);
+            if(!i)
+            {
+                n[cnt].id=cnt;
+                n[cnt++].lamax=t;
+            }
+            else
+            {
+                int flag=0,tempid,templamax=99999;
+                for(int j=0;j<cnt;j++)
+                    if(n[j].lamax>t&&n[j].lamax<templamax)
+                    {
+                        flag=1;
+                        tempid=j;
+                        templamax=n[j].lamax;
+                    }
+                if(!flag)
+                {
+                    n[cnt].id=cnt;
+                    n[cnt++].lamax=t;
+                }
+                else
+                    n[tempid].lamax=t;
+            }
+        }
+        printf("%d\n",cnt);
+    }
+}
+int main()
+{
+	//freopen("E:\\2_rub\\donhuakaoyanzhuanyeke\\DongHuaOj\\DongHuaOj\\in.txt", "r", stdin);
+	//freopen("E:\\2_rub\\donhuakaoyanzhuanyeke\\DongHuaOj\\DongHuaOj\\out.txt","w",stdout);
+	pro56();
+	return 0;
+}
