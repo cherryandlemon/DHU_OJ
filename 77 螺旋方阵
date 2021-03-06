@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include<stdlib.h>
+int pro77()
+{
+     int mat[15][15],n;
+     while(scanf("%d",&n)!=EOF)
+     {
+         int st=1,len=n;
+         int rs=1,re=n,cs=1,ce=n;
+         int cnt=n%2==0?n/2:n/2+1;
+         for(int i=1;i<=cnt;i++)
+         {
+             if(cs==ce&&rs==re)mat[rs][cs]=st++;
+             for(int k=cs;k<ce;k++)
+                mat[rs][k]=st++;
+             for(int k=rs;k<re;k++)
+                mat[k][ce]=st++;
+             for(int k=ce;k>cs;k--)
+                mat[re][k]=st++;
+             for(int k=re;k>rs;k--)
+                mat[k][cs]=st++;
+             rs++,re--,cs++,ce--;
+         }
+         for(int i=1;i<=n;i++)
+         {
+             for(int j=1;j<n;j++)
+                printf("%d ",mat[i][j]);
+             printf("%d\n",mat[i][n]);
+         }
+         printf("\n");
+     }
+}
+int main()
+{
+
+
+	pro77();
+
+	return 0;
+}
