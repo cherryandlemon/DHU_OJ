@@ -1,0 +1,47 @@
+#include <stdio.h>
+#define maxn 100006
+int vis[maxn];
+int prime[maxn];
+int Oula()//vis[i]==0 代表这是质数
+{
+    //memset(vis,0,sizeof(vis));
+    for(int i=0;i<maxn;i++)
+        vis[i]=0;
+    int cnt=0;
+    for(int i=2;i<=maxn;i++)
+    {
+        if(!vis[i])prime[cnt++]=i;
+        for(int j=0;j<cnt&&prime[j]*i<=maxn;j++)
+        {
+            vis[prime[j]*i]=1;
+            if(i%prime[j]==0)break;
+        }
+    }
+}
+int ishuiwen(int n)
+{
+    int a[15],cnt=0;
+    while(n)
+    {
+        a[cnt++]=n%10;
+        n/=10;
+    }
+    for(int i=0,j=cnt-1;i<j;i++,j--)
+        if(a[i]!=a[j])return 0;
+    return 1;
+}
+int pro24()
+{
+       int a,b;
+       Oula();
+       while(scanf("%d%d",&a,&b)!=EOF)
+       {
+           for(int i=a;i<=b;i++)
+               if(!vis[i]&&ishuiwen(i))printf("%d\n",i);
+       }
+}
+int main()
+{
+	pro24();
+	return 0;
+}
