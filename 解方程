@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include<iostream> 
+#include <iomanip>
+using namespace std;
+int main()
+{
+    int a,b;
+   // scanf("%lf%lf",&a,&b);
+   while(cin>>a>>b){
+   	 double x=0;
+    x=(5-(3.0*b))/(2.0*a);
+   //cout<<setiosflags(ios::fixed)<<setprecision(1)<<x<<endl;
+    printf("%.1f\n",x);
+
+   }
+   
+    return 0;
+}
