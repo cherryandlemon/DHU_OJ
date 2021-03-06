@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+#include<algorithm>
+using namespace std;
+struct fra
+{
+    int nume;
+    int deno;
+    double val;
+}fr[1000];
+int cmp(fra a ,fra b)
+{
+    return a.val<b.val;
+}
+int is_reduce(int a,int b)
+{
+    int rem;
+    while(b>0)
+    {
+        rem=a%b;
+        a=b;
+        b=rem;
+    }
+    return a==1?1:0;
+}
+int pro120()
+{
+    int n,cnt=0;
+    scanf("%d",&n);
+    for(int i=n;i>1;i--)
+    {
+        for(int j=1;j<i;j++)
+        {
+            if(is_reduce(i,j)||j==1)
+            {
+                fr[cnt].deno=j;
+                fr[cnt].nume=i;
+                fr[cnt++].val=((double)j/(double)i);
+            }
+        }
+    }
+    fr[cnt].deno=0;
+    fr[cnt++].nume=1;
+    sort(fr,fr+cnt,cmp);
+    for(int i=0;i<cnt;i++)
+        printf("%d/%d\n",fr[i].deno,fr[i].nume);
+}
+int main()
+{
+	
+
+	pro120();
+	return 0;
+}
