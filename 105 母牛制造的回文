@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<math.h>
+#include<ctype.h>
+#define maxn 20050
+#define submaxn 2050
+int ishuiwen(char s[],int st,int len)
+{
+    for(int i=st,j=st+len-1;i<j;)
+    {
+        while(!isalpha(s[i]))i++;
+        while(!isalpha(s[j]))j--;
+        if(toupper(s[i])!=toupper(s[j]))return 0;
+        else {
+            i++;
+            j--;
+        }
+    }
+    return 1;
+}
+int pro105()
+{
+    char file[maxn],temp[maxn];
+    while(gets(temp))
+    {
+        strcat(file,temp);
+ strcat(file,"\n");
+    }
+    int file_len=strlen(file);
+    int ans_st,ans_len;
+    for(int len=2000;len>=1;len--)
+    {
+        int flag=0;
+        for(int st=0;st<=file_len-len;st++)
+        {
+             if(ishuiwen(file,st,len))
+             {
+                 flag=1;
+                 ans_st=st;
+                 ans_len=len;
+                 break;
+             }
+        }
+        if(flag)break;
+    }
+    int prcess_st=ans_st;
+    int prcess_len=ans_len;
+    int prcess_end=ans_st+ans_len-1;
+    for(int i=ans_st;i<ans_st+ans_len;i++)
+        if(!isalpha(file[i]))prcess_len--;
+    while(!isalpha(file[prcess_st]))
+    {
+        prcess_st++;
+    }
+    while(!isalpha(file[prcess_end]))
+    {
+        prcess_end--;
+    }
+    printf("%d\n",prcess_len);
+    for(int i=prcess_st;i<=prcess_end;i++)
+        printf("%c",file[i]);
+    printf("\n");
+}
+int main()
+{
+	pro105();
+	return 0;
+}
