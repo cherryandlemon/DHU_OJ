@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<iostream>
+#include<algorithm>
+#include<string.h>
+using namespace std;
+#define inf   9999999
+struct dist
+{
+    int s;
+    int end;
+    int len;
+};
+bool cmp(dist x,dist y)
+{
+    return x.len>y.len;
+}
+int pro49()
+{
+    int m,c,cow[201],temp,cnt,ans,maxc,minc;
+    dist d[201];
+    while(scanf("%d%d",&m,&c)!=EOF)
+    {
+        if(m>=c)
+        {
+            for(int i=1;i<=c;i++)
+            {
+                scanf("%d",&temp);
+            }
+            printf("%d\n",c);
+        }
+        else
+        {
+            cnt=0;
+            memset(cow,0,sizeof(cow));
+            maxc=0;
+            minc=inf;
+            for(int i=1;i<=c;i++)
+            {
+                scanf("%d",&temp);
+                if(temp>maxc)maxc=temp;
+                if(temp<minc)minc=temp;
+                cow[temp]=1;
+            }
+            ans=maxc-minc+1;
+            int start=1,end;
+            for(int i=2;i<=200;i++)
+            {
+                if(cow[i])
+                {
+                    end=i;
+                    d[cnt].s=start;
+                    d[cnt].end=end;
+                    d[cnt++].len=end-start-1;
+                    start=end;
+                }
+            }
+            sort(d,d+cnt,cmp);
+            int times=m-1,cur=0;
+            while(times)
+            {
+                ans=ans-d[cur++].len;
+                if(d[cur].s==minc||d[cur].end==maxc);
+                else times--;
+            }
+            printf("%d\n",ans);
+        }
+
+    }
+}
+int main()
+{
+	pro49();
+	return 0;
+}
